@@ -6,7 +6,7 @@ while(num.length>0){
     num = num.slice(0, -1);
 }
 console.log(Number.parseInt(newNum));
-console.log(num)
+
     
 
 
