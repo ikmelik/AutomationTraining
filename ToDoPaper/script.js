@@ -3,7 +3,7 @@
     let that = this;
 
     this.todoItems = [];
-    this.setJsonData = function () {
+    this.getJsonData = function () {
         $.getJSON("todo.json", function (data) {
             if (data.data) {
                 for (let i = 0; data.data.length > i; i++) {
@@ -13,6 +13,11 @@
             }
         });
     }
+    this.setJsonData = function(){
+        let jsonString = JSON.stringify(this.todoItems);
+        //@todo here is should be jquery json put function, but I don't know what exactly function should be...
+    }
 }
 let todoItemsOjb = new ToDoPaper();
-todoItemsOjb.setJsonData()
+todoItemsOjb.getJsonData();
+todoItemsOjb.setJsonData();
