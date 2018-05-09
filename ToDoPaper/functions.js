@@ -1,4 +1,4 @@
-﻿function validityCheck(todoItemsOjb, toDoItem) {
+﻿function validityCheck(toDoItem) {
     //check if id item exists
     if (!toDoItem.id || !Number.isInteger(toDoItem.id)) {
         console.log('id does not exist or is not integer')
@@ -26,13 +26,16 @@
     return true;
 }
 
-function addTodoItem(todoItemsOjb,todoItem) {
-    if (validityCheck(todoItemsOjb, todoItem)) {
+function addTodoItem(todoItem) {
+    if (validityCheck(todoItem)) {
         todoItemsOjb.todoItems.push(todoItem);
+        addToDoItemDom(todoItem);
     }
+    viewTodoList(todoItemsOjb.itemsType);
 }
 
-function viewTodoList(todoItemsOjb,itemsType) {
+function viewTodoList(itemsType) {
+    todoItemsOjb.itemsType=itemsType;
     let newList = [];
     for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
         if (itemsType == 'completed' && todoItemsOjb.todoItems[i].completed == true) {
@@ -43,15 +46,17 @@ function viewTodoList(todoItemsOjb,itemsType) {
             newList.push(todoItemsOjb.todoItems[i]);
         }
     }
-    return newList;
+    todoItemsOjb.todoItemsRender = newList;
+    viewTodoListDom();
 }
 
-function editTodoItem(todoItemsOjb, todoItemId, newText) {
+function editTodoItem(todoItemId, newText) {
     if (newText != '' && typeof newText == 'string') {
         for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
-            if (todoItemId == todoItemId[i].id) {
-                todoItemId[i].text = newText;
-                return todoItemId[i];
+            if (todoItemId == todoItemsOjb.todoItems[i].id) {
+                todoItemsOjb.todoItems[i].text = newText;
+                editTodoItemDom(todoItemId, newText);
+                return todoItemsOjb.todoItems[i];
             }
         }
     }
@@ -59,17 +64,18 @@ function editTodoItem(todoItemsOjb, todoItemId, newText) {
 }
 
 
-function deleteTodoItem(todoItemsOjb,todoItemId) {
+function deleteTodoItem(todoItemId) {
            for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
-            if (todoItemId == todoItemId[i].id) {
-                delete todoItemId[i];
+            if (todoItemId == todoItemsOjb.todoItems[i].id) {
+                deleteTodoItemDom(todoItemId)
+                delete todoItemsOjb.todoItems[i];
                 return true;
             }
         }
         return false;
 }
 
-function completeTodoItem(todoItemsOjb, todoItemId) {
+function completeTodoItem(todoItemId) {
     if (typeof toDoItem.completed=='boolean') {
         for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
             if (todoItemId == todoItemId[i].id) {
