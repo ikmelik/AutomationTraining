@@ -2,21 +2,39 @@
 
 <html lang="en">
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<title>My homework</title>
-<meta name="description" content="First homework">
-<meta name="author" content="Inna Khmelik">
+    <title>My homework</title>
+    <meta name="description" content="First homework">
+    <meta name="author" content="Inna Khmelik">
 </head>
 
 <body>
+<h4>Choose to do items type:</h4>
+<div id="type-wrapper">
+    <input type="radio" id="toDoItemType1"
+           name="type" checked value="all">
+    <label for="toDoItemType1">All</label>
+    <input type="radio" id="toDoItemType2"
+           name="type" value="completed">
+    <label for="toDoItemType2">Completed</label>
+    <input type="radio" id="toDoItemType3"
+           name="type" value="not completed">
+    <label for="toDoItemType3">Not Completed</label>
+</div>
+<br>
+<div>
+    <h4>Add new item</h4>
+    <input placeholder="enter item name" type="text" id="new-item" name="new-item">
+    <input type="button" id="save-button" value="Save">
+</div>
+<h4>Items list</h4>
 <div id="todo-items">
-    <ul>
-
-    </ul>
+    <ul></ul>
 </div>
 </body>
 <script src="dom.js"></script>
+<script src="events.js"></script>
 <script src="jQuery"></script>
 <script src="todo.json"></script>
 <script src="functions.js"></script>

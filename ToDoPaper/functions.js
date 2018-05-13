@@ -26,6 +26,16 @@
     return true;
 }
 
+function getUniqueId() {
+    let maxId = 0;
+    for (let i = 0; todoItemsOjb.todoItems.length > i; i++) {
+        if (todoItemsOjb.todoItems[i].id > maxId) {
+            maxId = todoItemsOjb.todoItems[i].id;
+        }
+    }
+    return maxId + 1;
+}
+
 function addTodoItem(todoItem) {
     if (validityCheck(todoItem)) {
         todoItemsOjb.todoItems.push(todoItem);
@@ -35,7 +45,7 @@ function addTodoItem(todoItem) {
 }
 
 function viewTodoList(itemsType) {
-    todoItemsOjb.itemsType=itemsType;
+    todoItemsOjb.itemsType = itemsType;
     let newList = [];
     for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
         if (itemsType == 'completed' && todoItemsOjb.todoItems[i].completed == true) {
@@ -56,7 +66,7 @@ function editTodoItem(todoItemId, newText) {
             if (todoItemId == todoItemsOjb.todoItems[i].id) {
                 todoItemsOjb.todoItems[i].text = newText;
                 editTodoItemDom(todoItemId, newText);
-                return todoItemsOjb.todoItems[i];
+                viewTodoListDom();
             }
         }
     }
@@ -65,24 +75,22 @@ function editTodoItem(todoItemId, newText) {
 
 
 function deleteTodoItem(todoItemId) {
-           for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
-            if (todoItemId == todoItemsOjb.todoItems[i].id) {
-                deleteTodoItemDom(todoItemId)
-                delete todoItemsOjb.todoItems[i];
-                return true;
-            }
-        }
-        return false;
-}
-
-function completeTodoItem(todoItemId) {
-    if (typeof toDoItem.completed=='boolean') {
-        for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
-            if (todoItemId == todoItemId[i].id) {
-                todoItemId[i].completed = true;
-                return todoItemId[i];
-            }
+    for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
+        if (todoItemId == todoItemsOjb.todoItems[i].id) {
+            deleteTodoItemDom(todoItemId);
+            todoItemsOjb.todoItems.splice(i, 1);
+            delete todoItemsOjb.todoItemsInEdit[todoItemId];
+            return true;
         }
     }
     return false;
+}
+
+function completeTodoItem(todoItemId) {
+    for (let i = 0; i < todoItemsOjb.todoItems.length; i++) {
+        if (parseInt(todoItemId) === todoItemsOjb.todoItems[i].id) {
+            todoItemsOjb.todoItems[i].completed = true;
+        }
+    }
+    viewTodoList(todoItemsOjb.itemsType);
 }

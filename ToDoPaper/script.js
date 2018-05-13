@@ -4,6 +4,7 @@
     this.itemsType='all';
     this.todoItems = [];
     this.todoItemsRender = [];
+    this.todoItemsInEdit = {};
 
     this.getJsonData = function () {
         $.getJSON("todo.json", function (data) {
@@ -24,21 +25,22 @@ let todoItemsOjb = new ToDoPaper();
 todoItemsOjb.getJsonData();
 todoItemsOjb.setJsonData();
 
-setTimeout(function () {
-    viewTodoList('completed');
-    setTimeout(function () {
-        editTodoItem(1, '44444');
-        setTimeout(function () {
-            addTodoItem({id:4,text:'blah', completed:false});
-            setTimeout(function () {
-                deleteTodoItem(4);
-
-            },1000);
-        },1000);
-
-    },1000);
-
-},1000);
+//for test Hometask #4
+// setTimeout(function () {
+//     viewTodoList('completed');
+//     setTimeout(function () {
+//         editTodoItem(1, '44444');
+//         setTimeout(function () {
+//             addTodoItem({id:4,text:'blah', completed:false});
+//             setTimeout(function () {
+//                 deleteTodoItem(4);
+//
+//             },1000);
+//         },1000);
+//
+//     },1000);
+//
+// },1000);
 
 
 
